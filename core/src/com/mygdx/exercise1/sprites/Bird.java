@@ -1,4 +1,5 @@
 package com.mygdx.exercise1.sprites;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
@@ -31,8 +32,29 @@ public class Bird {
     }
 
     public void update(float dt) {
-        this.moveY(speed*dt);
-        this.moveX(speed*dt);
+        useMouse(dt);
+    }
+
+    // Gdx.input to move sprite using mouse
+    public void useMouse (float dt) {
+        if (Gdx.input.isTouched()) {
+            pos.x = Gdx.input.getX() - bird.getWidth()/2;
+            pos.y = -1*Gdx.input.getY() + Exercise1.HEIGHT - bird.getHeight()/2; // y-axis is inverted or something
+        }
+
+        // stop at edges
+        if (pos.x > Exercise1.WIDTH-bird.getWidth()) {
+            pos.x = Exercise1.WIDTH-bird.getWidth();
+        }
+        if (pos.x < 0) {
+            pos.x = 0;
+        }
+        if (pos.y > Exercise1.HEIGHT-bird.getHeight()) {
+            pos.y = Exercise1.HEIGHT-bird.getHeight();
+        }
+        if (pos.y < 0) {
+            pos.y = 0;
+        }
     }
 
     public void moveX(float speed) {
