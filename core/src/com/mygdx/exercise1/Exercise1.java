@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.exercise1.states.GameStateManager;
 import com.mygdx.exercise1.states.MenuState;
+import com.mygdx.exercise1.states.PlayState;
 
 public class Exercise1 extends ApplicationAdapter {
 
@@ -23,7 +24,7 @@ public class Exercise1 extends ApplicationAdapter {
 		gsm = new GameStateManager();
 		// img = new Texture(Gdx.files.internal("attackhelicopter.png"));
 		Gdx.gl.glClearColor(1, 0, 1, 1);
-		gsm.push(new MenuState(gsm));
+		gsm.push(new PlayState(gsm));
 	}
 
 	@Override

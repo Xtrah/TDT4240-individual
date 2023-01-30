@@ -30,7 +30,6 @@ public class MenuState extends State {
     @Override
     public void render(SpriteBatch sb) {
         sb.begin();
-        sb.draw(background, 0, 0, Exercise1.WIDTH, Exercise1.HEIGHT);
         sb.draw(playBtn, (Exercise1.WIDTH / 2) - (playBtn.getWidth() / 2), Exercise1.HEIGHT / 2);
         sb.end();
     }
