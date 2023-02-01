@@ -7,7 +7,7 @@ import com.mygdx.exercise1.Exercise1;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
-		config.setTitle("Ex1 Task 1");
+		config.setTitle(Exercise1.TITLE);
 		config.setWindowedMode(Exercise1.WIDTH, Exercise1.HEIGHT);
 		new Lwjgl3Application(new Exercise1(), config);
 	}
