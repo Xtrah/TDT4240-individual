@@ -1,22 +1,24 @@
 package com.mygdx.exercise1.sprites;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.exercise1.Exercise1;
 
 public class Bird {
-    private Texture bird;
+    private Texture bird1, bird2, bird3;
     private Sprite birdSprite;
     private Vector2 pos;
     private int speed;
     private boolean xPositive;
     private boolean yPositive;
+    private float elapsedTime = 0;
 
     public Bird(int x, int y) {
         pos = new Vector2(x,y);
-        bird = new Texture("attackhelicopter.png");
-        birdSprite = new Sprite(bird);
+        bird1 = new Texture("heli1.png");
+        bird2 = new Texture("heli2.png");
+        bird3 = new Texture("heli3.png");
+        birdSprite = new Sprite(bird1);
         birdSprite.flip(true,false);
         xPositive = true;
         yPositive = true;
@@ -32,29 +34,19 @@ public class Bird {
     }
 
     public void update(float dt) {
-        useMouse(dt);
-    }
-
-    // Gdx.input to move sprite using mouse
-    public void useMouse (float dt) {
-        if (Gdx.input.isTouched()) {
-            pos.x = Gdx.input.getX() - bird.getWidth()/2;
-            pos.y = -1*Gdx.input.getY() + Exercise1.HEIGHT - bird.getHeight()/2; // y-axis is inverted or something
+        elapsedTime += dt;
+        if (elapsedTime > 0.1f) {
+            elapsedTime = 0;
+            if (birdSprite.getTexture() == bird1) {
+                birdSprite.setTexture(bird2);
+            } else if (birdSprite.getTexture() == bird2) {
+                birdSprite.setTexture(bird3);
+            } else {
+                birdSprite.setTexture(bird1);
+            }
         }
-
-        // stop at edges
-        if (pos.x > Exercise1.WIDTH-bird.getWidth()) {
-            pos.x = Exercise1.WIDTH-bird.getWidth();
-        }
-        if (pos.x < 0) {
-            pos.x = 0;
-        }
-        if (pos.y > Exercise1.HEIGHT-bird.getHeight()) {
-            pos.y = Exercise1.HEIGHT-bird.getHeight();
-        }
-        if (pos.y < 0) {
-            pos.y = 0;
-        }
+        this.moveY(speed*dt);
+        this.moveX(speed*dt);
     }
 
     public void moveX(float speed) {
@@ -65,7 +57,7 @@ public class Bird {
             pos.x -= speed;
         }
 
-        if (xPositive && (pos.x > Exercise1.WIDTH-bird.getWidth())) {
+        if (xPositive && (pos.x > Exercise1.WIDTH-bird1.getWidth())) {
             pos.x -= speed;
             xPositive = false;
             birdSprite.flip(true,false);
@@ -85,7 +77,7 @@ public class Bird {
         else {
             pos.y -= speed;
         }
-        if(yPositive && (pos.y > Exercise1.HEIGHT-bird.getHeight())) {
+        if(yPositive && (pos.y > Exercise1.HEIGHT-bird1.getHeight())) {
             pos.y -= speed;
             yPositive = false;
         }
