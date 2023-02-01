@@ -1,6 +1,7 @@
 package com.mygdx.exercise1.sprites;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.exercise1.Exercise1;
 
@@ -13,6 +14,8 @@ public class Bird {
     private boolean yPositive;
     private float elapsedTime = 0;
 
+    private Rectangle birdObject;
+
     public Bird(int x, int y) {
         pos = new Vector2(x,y);
         bird1 = new Texture("heli1.png");
@@ -23,6 +26,12 @@ public class Bird {
         xPositive = true;
         yPositive = true;
         speed = 300;
+
+        birdObject = new Rectangle(x, y, bird1.getWidth(), bird1.getHeight());
+    }
+
+    public Rectangle getBirdObject() {
+        return birdObject;
     }
 
     public Sprite getBirdSprite() {
@@ -33,7 +42,7 @@ public class Bird {
         return pos;
     }
 
-    public void update(float dt) {
+    public void update(float dt, Bird anotherBird, Bird anotherBird2) {
         elapsedTime += dt;
         if (elapsedTime > 0.1f) {
             elapsedTime = 0;
@@ -45,8 +54,15 @@ public class Bird {
                 birdSprite.setTexture(bird1);
             }
         }
+
+        if (birdObject.overlaps(anotherBird.getBirdObject()) || birdObject.overlaps(anotherBird2.getBirdObject())) {
+            this.xPositive = !this.xPositive;
+            this.yPositive = !this.yPositive;
+        }
+
         this.moveY(speed*dt);
         this.moveX(speed*dt);
+        birdObject.setPosition(pos.x, pos.y);
     }
 
     public void moveX(float speed) {

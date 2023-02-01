@@ -1,6 +1,5 @@
 package com.mygdx.exercise1.states;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.exercise1.sprites.Bird;
 
@@ -23,9 +22,9 @@ public class PlayState extends State {
     @Override
     public void update(float dt) {
         handleInput();
-        bird.update(dt);
-        bird2.update(dt);
-        bird3.update(dt);
+        bird.update(dt, bird2, bird3);
+        bird2.update(dt, bird, bird3);
+        bird3.update(dt, bird, bird2);
     }
 
     @Override
