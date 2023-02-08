@@ -6,13 +6,13 @@ import java.util.Stack;
 
 public class GameStateManager {
     private static GameStateManager instance = null;
-    private Stack<State> states;
+    private Stack<PongState> states;
 
     private GameStateManager() {
-        states = new Stack<State>();
+        states = new Stack<PongState>();
     }
 
-    public void push(State state) {
+    public void push(PongState state) {
         states.push(state);
     }
 
@@ -20,7 +20,7 @@ public class GameStateManager {
         states.pop();
     }
 
-    public void set(State state) {
+    public void set(PongState state) {
         states.pop();
         states.push(state);
     }

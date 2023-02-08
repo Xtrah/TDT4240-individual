@@ -1,14 +1,18 @@
 package com.mygdx.exercise1.states;
 
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector3;
 import com.mygdx.exercise1.Exercise1;
 import com.mygdx.exercise1.sprites.PongBall;
 import com.mygdx.exercise1.sprites.PongPlayerLeft;
 import com.mygdx.exercise1.sprites.PongPlayerRight;
 
-public class PongState extends State {
-
+public class PongState {
+    protected OrthographicCamera cam;
+    protected Vector3 mouse;
+    protected GameStateManager gsm;
     private PongPlayerLeft player1;
     private PongPlayerRight player2;
     private PongBall ball;
@@ -18,7 +22,9 @@ public class PongState extends State {
 
 
     public PongState(GameStateManager gsm) {
-        super(gsm);
+        this.gsm = gsm;
+        cam = new OrthographicCamera();
+        mouse = new Vector3();
         player1 = new PongPlayerLeft();
         player2 = new PongPlayerRight();
         ball = new PongBall(Exercise1.WIDTH / 2, Exercise1.HEIGHT / 2);
@@ -32,12 +38,9 @@ public class PongState extends State {
     public void incRightScore() {
         this.rightScore += 1;
     }
-    @Override
     protected void handleInput() {
 
     }
-
-    @Override
     public void update(float dt) {
         handleInput();
         player1.update(dt, ball);
@@ -48,8 +51,6 @@ public class PongState extends State {
             this.gsm.pop();
         }
     }
-
-    @Override
     public void render(SpriteBatch sb) {
         sb.begin();
         sb.draw(player1.getBirdSprite(), player1.getPos().x, player1.getPos().y);
@@ -59,7 +60,6 @@ public class PongState extends State {
         sb.end();
     }
 
-    @Override
     public void dispose() {
 
     }
