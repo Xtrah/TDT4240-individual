@@ -10,7 +10,7 @@ public class Exercise1 extends ApplicationAdapter {
 
 	public static final int WIDTH = 800;
 	public static final int HEIGHT = 500;
-	public static final String TITLE = "Exercise 1 task 4 - Pong";
+	public static final String TITLE = "Exercise 2";
 
 	private GameStateManager gsm;
 	private SpriteBatch batch;
@@ -18,7 +18,7 @@ public class Exercise1 extends ApplicationAdapter {
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		gsm = new GameStateManager();
+		gsm = GameStateManager.getInstance();
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		gsm.push(new PongState(gsm));
 	}
